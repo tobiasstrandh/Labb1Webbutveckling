@@ -1,0 +1,21 @@
+.navbarstart {
+    background-color: #D5BDAF;
+}
+
+.BackgroundImg {
+    background-image: url(startpage2.webp);
+    width: auto;
+    height: 1150px;
+    position: relative;
+}
+
+
+
+
+.card1{
+   background-color: #D6CCC2;
+   height: 300px;
+   margin-top: 10em;
+   margin-left: 1em;
+   margin-right: 1em;
+}
