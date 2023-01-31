@@ -24,7 +24,7 @@
 // window.changeImg();
 
 if (/Android|iPhone/i.test(navigator.userAgent)) {
-  document.body.style.backgroundImage = "url(startpagemini.webp)";
+  document.body.style.backgroundImage = "url(startpage2.webp)";
 } else {
   document.body.style.backgroundImage = "url(startpage2.webp)";
 }
