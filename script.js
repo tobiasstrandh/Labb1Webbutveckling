@@ -24,7 +24,13 @@
 // window.changeImg();
 
 if (/Android|iPhone/i.test(navigator.userAgent)) {
-  document.body.style.backgroundImage = "url(startpage2.webp)";
+  const img = document.createElement("img");
+  img.src = "startpage2.webp";
+  img.alt = "Picture on the store";
+  img.classList.add("card-img-top");
+  const card = document.getElementById("startcard");
+  card.appendChild(img);
+  console.log(img.innerHTML);
 } else {
   document.body.style.backgroundImage = "url(startpage2.webp)";
 }

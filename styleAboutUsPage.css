@@ -3,19 +3,49 @@
 }
 
 .BackgroundImg {
-    background-image: url(startpage2.webp);
-    width: auto;
-    height: 1150px;
-    position: relative;
+    
 }
 
 
 
 
-.card1{
+.card{
    background-color: #D6CCC2;
-   height: 300px;
+   /* height: 300px;
    margin-top: 10em;
    margin-left: 1em;
-   margin-right: 1em;
+   margin-right: 1em; 
+
+    margin-top: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    max-width: 50rem;
+    height: auto;  */
+}
+
+.map-responsive {
+
+    overflow: visible;
+
+    padding-bottom: 56.25%;
+
+    position: relative;
+
+    height: 0;
+
+}
+
+.map-responsive iframe {
+
+    left: 0;
+
+    top: 0;
+
+    height: 100%;
+
+    width: 100%;
+
+    position: absolute;
+
 }

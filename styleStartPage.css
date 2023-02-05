@@ -2,29 +2,7 @@
     background-color: #D5BDAF;
 }
 
-
-
-.BackgroundImg2{
-    /* background-image: url(startpage2.webp); */
-    
-    /* width: auto;
-    height: 1150px;
-    position: relative;  */
-
-}
-
-footer{
-    background-color: #D5BDAF;
-}
-
-.card1{
+.card{
     background-color: #D6CCC2;
-    margin-top: 10rem;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    max-width: 50rem;
-    height: auto;
-        
 }
 
