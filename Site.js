@@ -9,13 +9,16 @@ class Item {
 }
 
 class Cart {
-  constructor(productId, amount) {
-    this.productId = productId;
+  constructor(item, amount, totalPricePerItem) {
+    this.item = item;
     this.amount = amount;
+    this.totalPricePerItem = totalPricePerItem;
   }
 }
 
-document.body.style.backgroundImage = "url(startpage2.webp)";
+if (!/Android|iPhone/i.test(navigator.userAgent)) {
+  document.body.style.backgroundImage = "url(startpage2.webp)";
+}
 
 const items = [];
 
@@ -27,10 +30,13 @@ const modalInfo = document.querySelector("#modal");
 
 const amountsInCart = [];
 
+let totalPrice = 0;
+//let totalPricePerItem = 0;
+
 items.push(
-  new Item("Poster Girl", "99", "bla bla 1", "postergirl.jpg", "Item001"),
-  new Item("Midnights", "100", "bla bla 2", "midnights.jpg", "Item002"),
-  new Item("Dawn FM", "100", "bla bla 3", "dawnfm.jpg", "Item003")
+  new Item("Poster Girl", 99, "bla bla 1", "postergirl.webp", "Item001"),
+  new Item("Midnights", 100, "bla bla 2", "midnights.webp", "Item002"),
+  new Item("Dawn FM", 100, "bla bla 3", "dawnfm.webp", "Item003")
 );
 
 DisplayItems();
@@ -38,8 +44,8 @@ DisplayCart();
 
 function DisplayItems() {
   for (const item of items) {
-    if (!amountsInCart.includes(item.productId)) {
-      amountsInCart.push(new Cart(item.productId, 0));
+    if (!amountsInCart.includes(item)) {
+      amountsInCart.push(new Cart(item, 0, 0));
     }
 
     const card = document.createElement("li");
@@ -64,11 +70,13 @@ function DisplayItems() {
     cardRemoveButton.classList.add("btn", "m-3");
 
     cardModalButton.setAttribute("data-bs-toggle", "modal");
-    cardModalButton.setAttribute("data-bs-target", "#modal");
+    cardModalButton.setAttribute("data-bs-target", `#modal${item.productId}`);
+    cardModalButton.setAttribute("id", `btn${item.productId}`);
 
     card.classList.add("card", "mt-3", "ms-4");
 
     cardPicture.src = item.productPicture;
+    cardPicture.rel;
     cardPicture.alt = "Picture on album";
     cardHeader.innerText = item.product;
     cardPrice.innerText = `${item.price}kr`;
@@ -79,37 +87,6 @@ function DisplayItems() {
     cardAmountInCart.innerText = 0;
     cardAmountInCart.setAttribute("id", "price");
 
-    const modal = document.createElement("div");
-    const modalDialog = document.createElement("div");
-    const modalContent = document.createElement("div");
-    const modalBody = document.createElement("div");
-
-    //////
-
-    modal.classList.add("modal", "fade");
-    modal.setAttribute("id", "modal");
-    modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
-    modalContent.classList.add("modal-content");
-    modalBody.classList.add("modal-body");
-
-    modalBody.innerText = item.info;
-
-    ////////
-
-    container.appendChild(cardModalButton);
-    cardModalButton.appendChild(modal);
-    modal.appendChild(modalDialog);
-    modalDialog.appendChild(modalContent);
-    modalContent.appendChild(modalBody);
-
-    //modal.append(modalDialog, modalContent, modalBody);
-
-    //cardModalButton.append(modal, modalDialog, modalContent, modalBody);
-
-    // cardModalButton.onclick = () => {
-    //   moreInfoAboutItem(item);
-    // };
-
     cardAddButton.onclick = () => {
       addItemToCart(item.product, item.price);
     };
@@ -117,11 +94,13 @@ function DisplayItems() {
     cardRemoveButton.onclick = () => {
       removeItemFromCart(item.product);
     };
-
+    container.appendChild(cardModalButton);
     cardBody.append(cardText, cardPrice, container);
     cardFooter.append(cardAddButton, cardRemoveButton, cardAmountInCart);
     card.append(cardPicture, cardHeader, cardBody, cardFooter);
     itemList.append(card);
+
+    modal(item);
   }
 }
 
@@ -154,9 +133,11 @@ function addItemToCart(product, price) {
       const cardPrice = cardItem.querySelector("#price");
 
       for (const amount of amountsInCart) {
-        if (item.productId === amount.productId) {
-          amount.amount = amount.amount + 1;
+        if (item.productId === amount.item.productId) {
+          amount.amount += 1;
           cardPrice.innerText = amount.amount;
+          amount.totalPricePerItem += item.price;
+          console.log(amount.totalPricePerItem);
           DisplayCart();
         }
       }
@@ -171,14 +152,16 @@ function removeItemFromCart(product) {
       const cardPrice = cardItem.querySelector("#price");
 
       for (const amount of amountsInCart) {
-        if (item.productId === amount.productId) {
+        if (item.productId === amount.item.productId) {
           if (amount.amount > 0) {
             amount.amount = amount.amount - 1;
             cardPrice.innerText = amount.amount;
+            amount.totalPricePerItem -= item.price;
             DisplayCart();
-          } else {
+          } else if (amount.amount === 0) {
             amount.amount = 0;
             cardPrice.innerText = amount.amount;
+            amount.totalPricePerItem -= item.price;
             DisplayCart();
           }
         }
@@ -200,16 +183,48 @@ function DisplayCart() {
 
   cardHeader.innerText = "Cart";
 
+  const total = [];
+
   for (const item of amountsInCart) {
     const cardText = document.createElement("p");
 
     if (item.amount > 0) {
-      cardText.innerText = `${item.productId} ${item.amount}`;
+      cardText.innerText = `${item.item.product} ${item.amount}`;
+      total.push(item.totalPricePerItem);
     }
 
     cardBody.append(cardText);
   }
 
+  totalPrice = total.reduce((acc, curr) => acc + curr, 0);
+
+  const cardTextPrice = document.createElement("p");
+  cardTextPrice.innerText = totalPrice;
+
+  cardBody.append(cardTextPrice);
   card.append(cardHeader, cardBody);
   cartList.append(card);
+}
+
+function modal(item) {
+  const findBtn = document.querySelector(`#btn${item.productId}`);
+
+  const modal = document.createElement("div");
+  const modalDialog = document.createElement("div");
+  const modalContent = document.createElement("div");
+  const modalBody = document.createElement("div");
+
+  modal.classList.add("modal", "fade");
+  modal.setAttribute("id", `modal${item.productId}`);
+  modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
+  modalContent.classList.add("modal-content");
+  modalBody.classList.add("modal-body");
+
+  modalBody.innerText = item.info;
+
+  modal.appendChild(modalDialog);
+  modalDialog.appendChild(modalContent);
+  modalContent.appendChild(modalBody);
+
+  findBtn.appendChild(modal);
 }

@@ -1,12 +1,28 @@
 .card{
     background-color: #EDEDE9;
+    margin-bottom: 2rem;
+    /* width: 250px; */
+    
 }
 
 img{
-    height: 250px;
-    width: 250px;
+    position:relative
+}
+
+#cart{
+    position: fixed;
+    width: 17rem;
+    height: 100%;
 }
 
 .btn{
    font-size:larger; 
+}
+footer {
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 2rem;
+    background-color: #F5EBE0;
 }
