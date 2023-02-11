@@ -68,12 +68,17 @@ function DisplayItems() {
     cardModalButton.classList.add("btn");
     cardAddButton.classList.add("btn", "m-3");
     cardRemoveButton.classList.add("btn", "m-3");
+    cardPicture.classList.add("card-img");
 
     cardModalButton.setAttribute("data-bs-toggle", "modal");
     cardModalButton.setAttribute("data-bs-target", `#modal${item.productId}`);
     cardModalButton.setAttribute("id", `btn${item.productId}`);
 
     card.classList.add("card", "mt-3", "ms-4");
+    cardHeader.classList.add("card-header");
+    cardBody.classList.add("card-body");
+    cardText.classList.add("card-text");
+    cardFooter.classList.add("card-footer");
 
     cardPicture.src = item.productPicture;
     cardPicture.rel;
@@ -104,27 +109,27 @@ function DisplayItems() {
   }
 }
 
-function moreInfoAboutItem(item) {
-  const modal = document.createElement("div");
-  const modalDialog = document.createElement("div");
-  const modalContent = document.createElement("div");
-  const modalBody = document.createElement("div");
+// function moreInfoAboutItem(item) {
+//   const modal = document.createElement("div");
+//   const modalDialog = document.createElement("div");
+//   const modalContent = document.createElement("div");
+//   const modalBody = document.createElement("div");
 
-  //////
+//   //////
 
-  modal.classList.add("modal", "fade");
-  modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
-  modalContent.classList.add("modal-content");
-  modalBody.classList.add("modal-body");
+//   modal.classList.add("modal", "fade");
+//   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
+//   modalContent.classList.add("modal-content");
+//   modalBody.classList.add("modal-body");
 
-  modalBody.innerText = item.info;
+//   modalBody.innerText = item.info;
 
-  ////////
+//   ////////
 
-  modal.appendChild(modalDialog, modalContent, modalBody);
+//   modal.appendChild(modalDialog, modalContent, modalBody);
 
-  modalInfo.append(modal);
-}
+//   modalInfo.append(modal);
+// }
 
 function addItemToCart(product, price) {
   for (const item of items) {

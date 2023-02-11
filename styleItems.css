@@ -1,12 +1,16 @@
+a{
+    font-family: 'Times New Roman', Times, serif ;
+}
+
 .card{
     background-color: #EDEDE9;
     margin-bottom: 2rem;
-    /* width: 250px; */
-    
+    max-width: 300px;
 }
 
 img{
-    position:relative
+    max-width: 300px;
+    max-height: 300px;
 }
 
 #cart{

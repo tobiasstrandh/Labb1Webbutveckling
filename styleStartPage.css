@@ -14,3 +14,7 @@ footer{
     height: 2rem;
     background-color: #F5EBE0;
 }
+
+a {
+    font-family: 'Times New Roman', Times, serif;
+}
