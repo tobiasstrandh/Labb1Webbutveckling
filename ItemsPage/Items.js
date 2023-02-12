@@ -17,7 +17,7 @@ class Cart {
 }
 
 if (!/Android|iPhone/i.test(navigator.userAgent)) {
-  document.body.style.backgroundImage = "url(/Pics/startpage2.webp)";
+  document.body.style.backgroundImage = "url(../Pics/startpage2.webp)";
 }
 
 const items = [];
@@ -34,9 +34,15 @@ let totalPrice = 0;
 //let totalPricePerItem = 0;
 
 items.push(
-  new Item("Poster Girl", 99, "bla bla 1", "/Pics/postergirl.webp", "Item001"),
-  new Item("Midnights", 100, "bla bla 2", "/Pics/midnights.webp", "Item002"),
-  new Item("Dawn FM", 100, "bla bla 3", "/Pics/dawnfm.webp", "Item003")
+  new Item(
+    "Poster Girl",
+    99,
+    "bla bla 1",
+    "../Pics/postergirl.webp",
+    "Item001"
+  ),
+  new Item("Midnights", 100, "bla bla 2", "../Pics/midnights.webp", "Item002"),
+  new Item("Dawn FM", 100, "bla bla 3", "../Pics/dawnfm.webp", "Item003")
 );
 
 DisplayItems();

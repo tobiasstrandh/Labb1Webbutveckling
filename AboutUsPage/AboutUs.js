@@ -7,7 +7,7 @@ class Question {
 }
 
 if (!/Android|iPhone/i.test(navigator.userAgent)) {
-  document.body.style.backgroundImage = "url(/Pics/startpage2.webp)";
+  document.body.style.backgroundImage = "url(../Pics/startpage2.webp)";
 }
 
 const stories = document.querySelector("#story");
@@ -25,7 +25,7 @@ function CardStory() {
   const cardText = document.createElement("p");
   const cardButton = document.createElement("button");
 
-  card.classList.add("card");
+  card.classList.add("card", "mt-5");
   cardBody.classList.add("card-body");
   cardText.classList.add("card-text");
   cardText.setAttribute("id", "textstory");
