@@ -6,7 +6,7 @@ a{
 }
 
 .card{
-    background-color: #EDEDE9;
+    background-color: #D6CCC2;
     margin-bottom: 2rem;
     max-width: 300px;
 }
@@ -24,12 +24,10 @@ img{
 
 .btn{
    font-size:larger; 
-}
-footer {
 
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 2rem;
-    background-color: #F5EBE0;
 }
+
+.cart{
+    background-color: #E3D5CA;
+}
+

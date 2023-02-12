@@ -85,7 +85,7 @@ function DisplayItems() {
 
     card.setAttribute("id", item.productId);
     container.classList.add("container");
-    cardModalButton.classList.add("btn");
+    cardModalButton.classList.add("btn", "btn-secondary");
     cardAddButton.classList.add("btn", "m-3");
     cardRemoveButton.classList.add("btn", "m-3");
     cardPicture.classList.add("card-img");
@@ -184,11 +184,11 @@ function DisplayCart() {
   const cardFooter = document.createElement("div");
   const cardButton = document.createElement("button");
 
-  card.classList.add("card", "mt-3", "ms-4");
+  card.classList.add("card", "mt-3", "ms-4", "cart");
   cardHeader.classList.add("card-header");
   cardBody.classList.add("card-body");
   cardFooter.classList.add("card-footer");
-  cardButton.classList.add("btn");
+  cardButton.classList.add("btn", "btn-secondary");
 
   cardHeader.innerText = "Cart";
   cardButton.innerText = "Complete";
