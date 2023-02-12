@@ -247,7 +247,8 @@ function modal(item) {
   modal.setAttribute("id", `modal${item.productId}`);
   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
   modalContent.classList.add("modal-content");
-  modalBody.classList.add("modal-body");
+  modalHeader.classList.add("modal-header", "text-black");
+  modalBody.classList.add("modal-body", "text-black");
   modalButton.classList.add("btn-close");
 
   modalButton.setAttribute("data-bs-dismiss", `modal${item.productId}`);
