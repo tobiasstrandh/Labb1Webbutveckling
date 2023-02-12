@@ -37,12 +37,27 @@ items.push(
   new Item(
     "Poster Girl",
     99,
-    "bla bla 1",
+    `Poster Girl is the third studio album by Swedish singer Zara Larsson and her second released internationally. 
+    It was released on 5 March 2021.`,
     "../Pics/postergirl.webp",
     "Item001"
   ),
-  new Item("Midnights", 100, "bla bla 2", "../Pics/midnights.webp", "Item002"),
-  new Item("Dawn FM", 100, "bla bla 3", "../Pics/dawnfm.webp", "Item003")
+  new Item(
+    "Midnights",
+    100,
+    `Midnights is the tenth studio album by American singer-songwriter Taylor Swift. 
+    It was released on October 21, 2022.`,
+    "../Pics/midnights.webp",
+    "Item002"
+  ),
+  new Item(
+    "Dawn FM",
+    100,
+    `Dawn FM is the fifth studio album by Canadian singer-songwriter the Weeknd. 
+    It was released on January 7 2022.`,
+    "../Pics/dawnfm.webp",
+    "Item003"
+  )
 );
 
 DisplayItems();
@@ -59,7 +74,6 @@ function DisplayItems() {
     const cardHeader = document.createElement("h2");
     const cardBody = document.createElement("div");
     const cardText = document.createElement("p");
-    const cardPrice = document.createElement("p");
     const cardFooter = document.createElement("h4");
 
     const container = document.createElement("div");
@@ -90,13 +104,13 @@ function DisplayItems() {
     cardPicture.rel;
     cardPicture.alt = "Picture on album";
     cardHeader.innerText = item.product;
-    cardPrice.innerText = `${item.price}kr`;
-    cardText.innerText = item.info;
+
+    cardText.innerText = `${item.price}kr`;
     cardModalButton.innerText = "More info";
     cardAddButton.innerText = "+";
     cardRemoveButton.innerText = "-";
     cardAmountInCart.innerText = 0;
-    cardAmountInCart.setAttribute("id", "price");
+    cardAmountInCart.setAttribute("id", "amount");
 
     cardAddButton.onclick = () => {
       addItemToCart(item.product, item.price);
@@ -106,7 +120,7 @@ function DisplayItems() {
       removeItemFromCart(item.product);
     };
     container.appendChild(cardModalButton);
-    cardBody.append(cardText, cardPrice, container);
+    cardBody.append(cardText, container);
     cardFooter.append(cardAddButton, cardRemoveButton, cardAmountInCart);
     card.append(cardPicture, cardHeader, cardBody, cardFooter);
     itemList.append(card);
@@ -115,33 +129,11 @@ function DisplayItems() {
   }
 }
 
-// function moreInfoAboutItem(item) {
-//   const modal = document.createElement("div");
-//   const modalDialog = document.createElement("div");
-//   const modalContent = document.createElement("div");
-//   const modalBody = document.createElement("div");
-
-//   //////
-
-//   modal.classList.add("modal", "fade");
-//   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
-//   modalContent.classList.add("modal-content");
-//   modalBody.classList.add("modal-body");
-
-//   modalBody.innerText = item.info;
-
-//   ////////
-
-//   modal.appendChild(modalDialog, modalContent, modalBody);
-
-//   modalInfo.append(modal);
-// }
-
 function addItemToCart(product, price) {
   for (const item of items) {
     if (item.product === product) {
       const cardItem = document.querySelector(`#${item.productId}`);
-      const cardPrice = cardItem.querySelector("#price");
+      const cardPrice = cardItem.querySelector("#amount");
 
       for (const amount of amountsInCart) {
         if (item.productId === amount.item.productId) {
@@ -160,7 +152,7 @@ function removeItemFromCart(product) {
   for (const item of items) {
     if (item.product === product) {
       const cardItem = document.querySelector(`#${item.productId}`);
-      const cardPrice = cardItem.querySelector("#price");
+      const cardPrice = cardItem.querySelector("#amount");
 
       for (const amount of amountsInCart) {
         if (item.productId === amount.item.productId) {
@@ -189,10 +181,17 @@ function DisplayCart() {
   const card = document.createElement("li");
   const cardHeader = document.createElement("h2");
   const cardBody = document.createElement("div");
+  const cardFooter = document.createElement("div");
+  const cardButton = document.createElement("button");
 
-  card.classList.add("card");
+  card.classList.add("card", "mt-3", "ms-4");
+  cardHeader.classList.add("card-header");
+  cardBody.classList.add("card-body");
+  cardFooter.classList.add("card-footer");
+  cardButton.classList.add("btn");
 
   cardHeader.innerText = "Cart";
+  cardButton.innerText = "Complete";
 
   const total = [];
 
@@ -210,11 +209,28 @@ function DisplayCart() {
   totalPrice = total.reduce((acc, curr) => acc + curr, 0);
 
   const cardTextPrice = document.createElement("p");
-  cardTextPrice.innerText = totalPrice;
+  cardTextPrice.setAttribute("id", "totalPrice");
+  cardTextPrice.innerText = `Total: ${totalPrice} Kr`;
+
+  cardButton.onclick = () => {
+    ClearCart();
+  };
 
   cardBody.append(cardTextPrice);
-  card.append(cardHeader, cardBody);
+  cardFooter.append(cardButton);
+  card.append(cardHeader, cardBody, cardFooter);
   cartList.append(card);
+}
+
+function ClearCart() {
+  const text = document.querySelector("#totalPrice");
+
+  text.innerText =
+    "Thanks for your purchase! You will soon be sent back to home";
+
+  setTimeout(() => {
+    window.location.replace("../index.html");
+  }, 10000);
 }
 
 function modal(item) {
@@ -223,19 +239,25 @@ function modal(item) {
   const modal = document.createElement("div");
   const modalDialog = document.createElement("div");
   const modalContent = document.createElement("div");
+  const modalHeader = document.createElement("h4");
   const modalBody = document.createElement("div");
+  const modalButton = document.createElement("button");
 
   modal.classList.add("modal", "fade");
   modal.setAttribute("id", `modal${item.productId}`);
   modalDialog.classList.add("modal-dialog", "modal-dialog-centered");
   modalContent.classList.add("modal-content");
   modalBody.classList.add("modal-body");
+  modalButton.classList.add("btn-close");
 
+  modalButton.setAttribute("data-bs-dismiss", `modal${item.productId}`);
+
+  modalHeader.innerText = item.product;
   modalBody.innerText = item.info;
 
   modal.appendChild(modalDialog);
   modalDialog.appendChild(modalContent);
-  modalContent.appendChild(modalBody);
+  modalContent.append(modalButton, modalHeader, modalBody);
 
   findBtn.appendChild(modal);
 }
