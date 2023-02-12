@@ -7,7 +7,7 @@ class Question {
 }
 
 if (!/Android|iPhone/i.test(navigator.userAgent)) {
-  document.body.style.backgroundImage = "url(startpage2.webp)";
+  document.body.style.backgroundImage = "url(Pics/startpage2.webp)";
 }
 
 const stories = document.querySelector("#story");
