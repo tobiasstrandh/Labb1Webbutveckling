@@ -1,11 +1,3 @@
-class Question {
-  constructor(statement, allAnswers, correctAnswer) {
-    this.statement = statement;
-    this.allAnswers = allAnswers;
-    this.correctAnswer = correctAnswer;
-  }
-}
-
 if (!/Android|iPhone/i.test(navigator.userAgent)) {
   document.body.style.backgroundImage = "url(../Pics/startpage2.webp)";
 }
